@@ -5,22 +5,31 @@ import org.springframework.stereotype.Component;
 
 import guru.springframework.spring5webapp.model.Author;
 import guru.springframework.spring5webapp.model.Book;
+import guru.springframework.spring5webapp.model.Publisher;
 import guru.springframework.spring5webapp.repository.AuthorRepository;
 import guru.springframework.spring5webapp.repository.BookRepository;
+import guru.springframework.spring5webapp.repository.PublisherRepository;
 
 @Component
 public class BootStrapData implements CommandLineRunner{
 
   private final AuthorRepository authorRepository;
   private final BookRepository bookRepository;
+  private final PublisherRepository publisherRepository;
 
-  public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+
+  public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository,
+      PublisherRepository publisherRepository) {
     this.authorRepository = authorRepository;
     this.bookRepository = bookRepository;
+    this.publisherRepository = publisherRepository;
   }
 
   @Override
   public void run(String... args) throws Exception {
+    
+    System.out.println("Started in bookstrap");
+
     Author author1 = new Author("Eric", "Evans");
     Book book1 = new Book("Domain Driven Development", "123123");
     author1.getBooks().add(book1);
@@ -37,9 +46,17 @@ public class BootStrapData implements CommandLineRunner{
     authorRepository.save(author2);
     bookRepository.save(book2);
 
-    System.out.println("Started in bookstrap");
+    
+    Publisher publisher = new Publisher("AL Nahda Press","Moharam Bek Alexandria", "Alexandria", "Alexandria", "12345");
+    publisherRepository.save(publisher);
+
+
     System.out.println("Number of books : " + bookRepository.count());
+    System.out.println("Number of publishers :" + publisherRepository.count());
   }
+
+
+
 
 
   
