@@ -1,7 +1,7 @@
 package guru.springframework.spring5webapp.model;
 
 import java.util.Set;
-
+import java.util.HashSet;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,15 +22,14 @@ public class Book {
   @ManyToMany
   @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
-  private Set<Author> authors;
+  private Set<Author> authors = new HashSet<>();
 
   public Book() {
   }
 
-  public Book(String name, String isbn, Set<Author> authors) {
+  public Book(String name, String isbn) {
     this.name = name;
     this.isbn = isbn;
-    this.authors = authors;
   }
 
   public String getName() {
