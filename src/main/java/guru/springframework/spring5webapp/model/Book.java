@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -16,9 +17,12 @@ public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
 
+
   private long id;
   private String name;
   private String isbn;
+  @ManyToOne
+  private Publisher publisher;
   @ManyToMany
   @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
@@ -64,6 +68,15 @@ public class Book {
     this.id = id;
   }
 
+  public Publisher getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(Publisher publisher) {
+    this.publisher = publisher;
+  }
+  
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -90,5 +103,7 @@ public class Book {
   public String toString() {
     return "Book [id=" + id + ", name=" + name + ", isbn=" + isbn + ", authors=" + authors + "]";
   }
+
+
   
 }
